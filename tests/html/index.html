@@ -20,9 +20,17 @@
             setTimeout(function(){InsertTable(result), 100);
           else
             for(key in result) {
-              var r = document.getElementById("data").tBodies[0].insertRow(-1);
-              r.insertCell(0).appendChild(document.createTextNode(key));
-              r.insertCell(1).appendChild(document.createTextNode(result[key]));
+              if (typeof result[key] === 'object')
+                for(key2 in result[key]) {
+                  var r = document.getElementById("data").tBodies[0].insertRow(-1);
+                  r.insertCell(0).appendChild(document.createTextNode(key + "." + key2));
+                  r.insertCell(1).appendChild(document.createTextNode(result[key][key2]));
+                }
+              else {
+                var r = document.getElementById("data").tBodies[0].insertRow(-1);
+                r.insertCell(0).appendChild(document.createTextNode(key));
+                r.insertCell(1).appendChild(document.createTextNode(result[key]));
+              }
             }
         }
 
