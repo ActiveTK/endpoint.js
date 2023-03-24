@@ -59,7 +59,7 @@
 ## 注意事項
 
 <li>IPアドレス以外の全ての情報は偽造が可能です。</li>
-<li>endpointjsの実行直後はIPアドレスを取得できない場合があります。その場合、以下のようにsetTimeoutで遅延処理を行ってください。</li>
+<li>endpointjsの実行直後はIPアドレスを取得できない場合があります。<br>その場合、以下のようにsetTimeoutで遅延処理を行ってください。</li>
 
 ```JavaScript
 window.endpointjs(function( result ) {
