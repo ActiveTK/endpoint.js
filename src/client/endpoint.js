@@ -24,4 +24,4 @@
 
   }
 
-}(window);
+}(window));
