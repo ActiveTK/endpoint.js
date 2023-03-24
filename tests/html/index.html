@@ -12,12 +12,12 @@
       document.addEventListener('DOMContentLoaded', function() {
 
         window.endpointjs(function( result ) {
-          setTimeout(function(){InsertTable(result), 100);
+          setTimeout(function(){InsertTable(result)}, 100);
         });
 
         function InsertTable(result) {
           if (!result.PublicIP)
-            setTimeout(function(){InsertTable(result), 100);
+            setTimeout(function(){InsertTable(result)}, 100);
           else
             for(key in result) {
               if (typeof result[key] === 'object')
