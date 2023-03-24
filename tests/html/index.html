@@ -1,11 +1,36 @@
 
-<script src="https://activetk.github.io/endpoint.js/src/client/endpoint.js"></script>
-<script>
 
-window.endpointjs(function( result ) {
+<!DOCTYPE html>
+<html lang="ja" itemscope="" itemtype="http://schema.org/WebPage" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://activetk.github.io/endpoint.js/lib/bootstrap-4.1.3.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO">
+    <script src="https://activetk.github.io/endpoint.js/src/client/endpoint.js"></script>
+    <script>
 
-    console.log( result );
+      window.endpointjs(function( result ) {
 
-});
+        for(key in result){
+          var r = document.getElementById("data").tBodies[0].insertRow(-1);
+          r.insertCell(0).appendChild(document.createTextNode(key));
+          r.insertCell(1).appendChild(document.createTextNode(result[key]));
+        }
 
-</script>
+      });
+
+    </script>
+  </head>
+  <body style="background-color:#e6e6fa;text:#363636;">
+
+    <h1>EndPoint.js Sample</h1>
+    <hr>
+    <table border="1" class="table table-striped" id="data" style="width:70%;">
+      <tr>
+        <th>項目名</th>
+        <th>内容</th>
+      </tr>
+    </table>
+
+  </body>
+</html>
