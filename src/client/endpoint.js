@@ -19,6 +19,14 @@
     .then(response => response.json())
     .then(data => {
       result.PublicIP = data.PublicIP;
+      result.Host = data.Host;
+      result.RealIP = data.RealIP;
+      result.IsItTor = data.IsItTor;
+      result.Headers = {};
+      result.Headers.UserAgent = data.UserAgent;
+      result.Headers.AcceptLanguage = data.AcceptLang;
+      result.Headers.AcceptEncoding = data.AcceptEncode;
+      result.Headers.UserAgentClientHints = data.UserAgentClientHints;
     });
 
     // WebRTC
