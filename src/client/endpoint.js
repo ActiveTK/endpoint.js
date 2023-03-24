@@ -5,15 +5,29 @@
  */
 
 "use strict";
-
 (function(window, undefined) {
 
   window.endpointjs = function( ...callback ) {
 
     let result = {};
 
+    // ユーザーエージェント
     result.UserAgent = navigator.userAgent;
 
+    // WebRTC
+    window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+    var rtc = new RTCPeerConnection({iceServers:[]}), noop = function(){};
+    rtc.createDataChannel('');
+    rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
+    rtc.onicecandidate = function(ice) {
+      if (ice && ice.candidate && ice.candidate.candidate) {
+        result.WebRTCInfo = ice.candidate.candidate;
+        result.PrivateIPaddress = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+        rtc.onicecandidate = noop;
+      }
+    }
+
+    // callback実行
     for (let i = 0 ; i < callback.length ; i++)
     {
       if (typeof callback[i] === 'function')
