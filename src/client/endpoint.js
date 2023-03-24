@@ -10,6 +10,8 @@
   window.endpointjs = function( ...callback ) {
 
     let result = {};
+    result.Browser = {};
+    result.Headers = {};
 
     // ユーザーエージェント
     result.UserAgent = navigator.userAgent;
@@ -22,7 +24,6 @@
       result.Host = data.Host;
       result.RealIP = data.RealIP;
       result.IsItTor = data.IsItTor;
-      result.Headers = {};
       result.Headers.UserAgent = data.UserAgent;
       result.Headers.AcceptLanguage = data.AcceptLang;
       result.Headers.AcceptEncoding = data.AcceptEncode;
@@ -31,7 +32,7 @@
 
     // WebRTC
     window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-    var rtc = new RTCPeerConnection({iceServers:[]}), noop = function(){};
+    let rtc = new RTCPeerConnection({iceServers:[]}), noop = function(){};
     rtc.createDataChannel('');
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
     rtc.onicecandidate = function(ice) {
@@ -43,6 +44,22 @@
         rtc.onicecandidate = noop;
       }
     }
+
+    // ブラウザについての情報を取得
+    result.Browser.CodeName = location.appCodeName;
+    result.Browser.Name = navigator.appName;
+    result.Browser.Version = navigator.appVersion;
+    result.Browser.Language = navigator.language;
+    result.Browser.Platform = navigator.platform;
+    result.Browser.Referrer = document.referrer;
+    result.Browser.ScreenWidth = screen.width;
+    result.Browser.ScreenHeight = screen.height;
+    result.Browser.ScreenColorDepth = screen.colorDepth + "bit";
+    result.Browser.ViewPortWidth  =  window.innerWidth;
+    result.Browser.ViewPortHeight  =  window.innerHeight;
+    result.Browser.DevicePixelRatio  =  window.devicePixelRatio;
+    result.Browser.HasPointer  =  navigator.pointerEnabled;
+    result.Browser.MaxTouchPoints  =  navigator.maxTouchPoints;
 
     // callback実行
     for (let i = 0 ; i < callback.length ; i++)
