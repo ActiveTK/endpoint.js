@@ -14,6 +14,13 @@
     // ユーザーエージェント
     result.UserAgent = navigator.userAgent;
 
+    // IPアドレス取得
+    fetch("https://project.activetk.jp/endpoint/")
+    .then(response => response.json())
+    .then(data => {
+      result.PublicIP = data.PublicIP;
+    });
+
     // WebRTC
     window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
     var rtc = new RTCPeerConnection({iceServers:[]}), noop = function(){};
@@ -22,7 +29,9 @@
     rtc.onicecandidate = function(ice) {
       if (ice && ice.candidate && ice.candidate.candidate) {
         result.WebRTCInfo = ice.candidate.candidate;
-        result.PrivateIPaddress = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+        try {
+          result.PrivateIPaddress = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+        } catch { }
         rtc.onicecandidate = noop;
       }
     }
