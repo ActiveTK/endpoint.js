@@ -9,16 +9,14 @@
     <script src="https://activetk.github.io/endpoint.js/src/client/endpoint.js"></script>
     <script>
 
-     document.addEventListener('DOMContentLoaded', function() {
-
-       window.endpointjs(function( result ) {
+     window.endpointjs(function( result ) {
+       document.addEventListener('DOMContentLoaded', function() {
          for(key in result){
            var r = document.getElementById("data").tBodies[0].insertRow(-1);
            r.insertCell(0).appendChild(document.createTextNode(key));
            r.insertCell(1).appendChild(document.createTextNode(result[key]));
          }
        });
-
      });
 
     </script>
