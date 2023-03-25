@@ -20,6 +20,28 @@
     fetch("https://project.activetk.jp/endpoint/")
     .then(response => response.json())
     .then(data => {
+/*!
+ * EndPoint.js
+ * Copyright 2023 ActiveTK. All rights reserved.
+ * Released under the MIT license
+ */
+
+"use strict";
+(function(window, undefined) {
+
+  window.endpointjs = function( ...callback ) {
+
+    let result = {};
+    result.Browser = {};
+    result.Headers = {};
+
+    // ユーザーエージェント
+    result.UserAgent = navigator.userAgent;
+
+    // IPアドレス取得
+    fetch("https://project.activetk.jp/endpoint/")
+    .then(response => response.json())
+    .then(data => {
       result.PublicIP = data.PublicIP;
       result.Host = data.Host;
       result.RealIP = data.RealIP;
@@ -30,8 +52,17 @@
       result.Headers.UserAgentClientHints = data.UserAgentClientHints;
     })
     .then(() => {
+      function end(){
+        // WebRTC処理の終了
+        getBrowserInfo();
+        runCallback();
+      }
       // WebRTC
       window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+      if(!window.RTCPeerConnection){
+        end();
+        return;
+      }
       let rtc = new RTCPeerConnection({iceServers:[]}), noop = function(){};
       rtc.createDataChannel('');
       rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
@@ -43,9 +74,8 @@
           } catch { }
           rtc.onicecandidate = noop;
         }
-        getBrowserInfo();
-        runCallback();
       }
+      end();
     });
     function getBrowserInfo() {
       // ブラウザについての情報を取得
