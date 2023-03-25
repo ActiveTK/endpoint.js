@@ -20,28 +20,6 @@
     fetch("https://project.activetk.jp/endpoint/")
     .then(response => response.json())
     .then(data => {
-/*!
- * EndPoint.js
- * Copyright 2023 ActiveTK. All rights reserved.
- * Released under the MIT license
- */
-
-"use strict";
-(function(window, undefined) {
-
-  window.endpointjs = function( ...callback ) {
-
-    let result = {};
-    result.Browser = {};
-    result.Headers = {};
-
-    // ユーザーエージェント
-    result.UserAgent = navigator.userAgent;
-
-    // IPアドレス取得
-    fetch("https://project.activetk.jp/endpoint/")
-    .then(response => response.json())
-    .then(data => {
       result.PublicIP = data.PublicIP;
       result.Host = data.Host;
       result.RealIP = data.RealIP;
