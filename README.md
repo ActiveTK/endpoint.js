@@ -39,7 +39,7 @@
 1. まず初めに、Scriptをhead内で読み込む必要があります。
 
 ```html
-<script src="https://activetk.github.io/endpoint.js/src/client/endpoint.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ActiveTK/endpoint.js@main/src/client/endpoint.min.js"></script>
 ```
 
 2. JavaScriptでwindow.endpointjsから関数を呼び出します。
